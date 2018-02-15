@@ -13,4 +13,12 @@ myComb2 n xs = do y:xs' <- tails xs
                   return (y:ys)
 
 -- using subsequences in Data.List and filtering with length
+-- **very heavy for huge arrays
 myComb3 k ns = filter ((k ==) . length) (subsequences ns)
+
+-- using recursive definitions without using tails or subsequences
+myComb4 :: Int -> [a] -> [[a]]
+myComb4 0 _ = return []
+myComb4 n xs = [xs !! i : prevComb | i <- [0..(length xs) - 1],  -- all possible indices
+    prevComb <- myComb4 (n - 1) (drop (i + 1) xs)]  -- combinations with 1 less elements
+    -- TODO: what if drop (i + 1) xs has less than n - 1 elements?
