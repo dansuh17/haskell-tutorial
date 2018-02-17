@@ -19,7 +19,7 @@ isPrime2 :: Integral a => a -> Bool
 isPrime2 k = k > 1 && foldr (\p r -> p * p > k || k `rem` p /= 0 && r) True primesTME
 
 {-# OPTIONS_GHC -O2 -fno-cse #-}
--- tree-merging Erathosthenes' sieve : see https://wiki.haskell.org/Prime_numbers
+-- tree-merging Eratosthenes' sieve : see https://wiki.haskell.org/Prime_numbers
 primesTME = 2 : gaps 3 (join [[p *p, p * p + 2 *p..] | p <- primes'])
   where
     primes' = 3 : gaps 5 (join [[p * p, p * p + 2 * p ..] | p <- primes'])
