@@ -1,7 +1,9 @@
+module EightyFour where
+
 import Data.List (sortBy)
 import Data.Maybe
 
--- construct the minimal spanning tree
+-- construct the minimal spanning tree using Prim's algorithm
 prim :: (Eq a) => [a] -> [(a, a, Int)] -> [(a, a, Int)]
 prim nodes edges = snd $ primAux [head nodes] []
   where
