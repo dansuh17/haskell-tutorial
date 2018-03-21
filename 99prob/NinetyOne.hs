@@ -90,12 +90,13 @@ onBoard n (x, y) = 1 <= x && x <= n && 1 <= y && y <= n
 
 -- Knight's tours on an nxn board ending at the given square
 knightsTo :: Int -> Square -> [[Square]]
-knightsTo n finish = [pos:path | (pos, path) <- tour (n*n)]
+knightsTo n finish = [pos:path | (pos, path) <- tour (n * n)]
   where tour 1 = [(finish, [])]
         tour k = [(pos', pos:path) |
-                (pos, path) <- tour (k-1),
-                pos' <- sortImage (entrances path)
-                        (filter (`notElem` path) (knightMoves n pos))]
+                     (pos, path) <- tour (k - 1),
+                     pos' <- sortImage (entrances path)  -- sort by positions with fewest onward moves
+                             (filter (`notElem` path) (knightMoves n pos))]
+        -- calculate the 'entrance' to (or from) a coordinate 'pos'
         entrances path pos =
                 length (filter (`notElem` path) (knightMoves n pos))
 
