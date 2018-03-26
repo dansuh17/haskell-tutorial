@@ -14,7 +14,7 @@ vonKoch :: [(Int, Int)] -> [[Int]]
 vonKoch edges = filter isEqualLength  -- check equality of duplicate-removed list of differences of edge numbers
   $ map (\perm ->
           nub $ map (\ edge -> calcDifference perm edge) edges)  -- remove duplicates of differences
-        $ perms
+        perms
   where
     calcDifference :: [Int] -> (Int, Int) -> Int
     calcDifference nodeSeq (x, y) = abs (nodeSeq !! (x - 1) - nodeSeq !! (y - 1))
